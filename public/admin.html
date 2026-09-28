@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>管理 · 私人书库</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23a9743f'/><text x='16' y='22' font-size='16' text-anchor='middle' fill='%23fbf7ef' font-family='Georgia'>书</text></svg>" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="mark">📚</span>私人书库</div>
+    <div class="actions" style="margin-left:auto">
+      <a href="/index.html" class="btn btn-ghost">返回书架</a>
+      <button class="btn btn-ghost" id="logoutBtn">退出</button>
+    </div>
+  </header>
+
+  <main class="admin-layout">
+    <h2>📥 上传新书</h2>
+    <section class="section-card">
+      <form id="uploadForm">
+        <div class="form-grid">
+          <div class="field full">
+            <label>书籍文件 *</label>
+            <div class="file-drop" id="fileDrop">
+              <span id="dropText">点击或拖拽文件到此处<br /><small style="color:var(--ink-3)">支持 EPUB / PDF / TXT，单文件建议不超过 80MB</small></span>
+              <div class="fname hidden" id="fileName"></div>
+              <input type="file" id="fileInput" accept=".epub,.pdf,.txt" hidden />
+            </div>
+          </div>
+          <div class="field">
+            <label>书名 *</label>
+            <input type="text" id="titleInput" placeholder="例如：三体" required />
+          </div>
+          <div class="field">
+            <label>作者</label>
+            <input type="text" id="authorInput" placeholder="例如：刘慈欣" />
+          </div>
+          <div class="field full">
+            <label>简介</label>
+            <textarea id="descInput" rows="3" placeholder="一句话介绍这本书（可选）"></textarea>
+          </div>
+          <div class="field">
+            <label>标签</label>
+            <input type="text" id="tagsInput" placeholder="科幻, 经典（逗号分隔，可选）" />
+          </div>
+          <div class="field">
+            <label>封面图</label>
+            <input type="file" id="coverInput" accept="image/*" />
+            <span class="hint">不传则自动生成文字封面</span>
+          </div>
+        </div>
+        <div style="margin-top:18px; display:flex; align-items:center; gap:14px">
+          <button type="submit" class="btn btn-primary btn-lg" id="uploadBtn">上传到书库</button>
+          <div class="upload-progress hidden" id="uploadProgress" style="flex:1">
+            <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+            <div class="pct" id="progressPct">0%</div>
+          </div>
+        </div>
+        <div class="upload-result" id="uploadResult"></div>
+      </form>
+    </section>
+
+    <h2>🗂 书目管理</h2>
+    <section class="section-card">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>书名</th><th>作者</th><th>格式</th><th>大小</th><th>入库时间</th><th style="text-align:right">操作</th>
+          </tr>
+        </thead>
+        <tbody id="bookList"></tbody>
+      </table>
+      <div class="empty-state hidden" id="adminEmpty" style="padding:40px 0">暂无书籍</div>
+    </section>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

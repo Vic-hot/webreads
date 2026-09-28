@@ -1,0 +1,16 @@
+{
+  "name": "ebook-library",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "部署在 Cloudflare 上的私人电子书库：书架管理 + 在线阅读（EPUB / PDF / TXT）",
+  "scripts": {
+    "dev": "wrangler pages dev public --d1 DB=local --kv SESSIONS=local --r2 BOOKS_BUCKET=local",
+    "check": "node --check functions/_middleware.js && node --check functions/_lib/auth.js && node --check functions/api/auth/login.js && node --check functions/api/auth/logout.js && node --check functions/api/auth/me.js && node --check functions/api/books.js && node --check \"functions/api/books/[id].js\" && node --check \"functions/api/books/[id]/file.js\" && node --check \"functions/api/books/[id]/cover.js\" && node --check public/js/api.js && node --check public/js/login.js && node --check public/js/bookshelf.js && node --check public/js/reader.js && node --check public/js/admin.js",
+    "test": "node test/local-test.mjs",
+    "deploy": "wrangler pages deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.19.0"
+  }
+}

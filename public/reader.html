@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>阅读 · 私人书库</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23a9743f'/><text x='16' y='22' font-size='16' text-anchor='middle' fill='%23fbf7ef' font-family='Georgia'>书</text></svg>" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <!-- 第三方库：全部本地托管在 /vendor/（版本锁定，见 README）
+       epub.js 浏览器版依赖 JSZip，必须先加载
+       pdf.js 使用 2.16.105（3.x 的 canvas 渲染在部分环境会挂起，2.x 兼容性最稳）；
+       worker 必须同源加载（跨域 new Worker 会被浏览器拦截导致渲染卡死） -->
+  <script src="/vendor/jszip.min.js"></script>
+  <script src="/vendor/epub.min.js"></script>
+  <script src="/vendor/pdf.min.js"></script>
+</head>
+<body>
+  <div class="loading-screen" id="loadingScreen">
+    <div class="spinner"></div>
+    <p id="loadingText">正在打开书籍…</p>
+  </div>
+
+  <div class="reader-app hidden" id="readerApp">
+    <header class="reader-topbar">
+      <button class="btn btn-ghost" id="btnBack">← 书架</button>
+      <div class="title" id="bookTitle">加载中…</div>
+      <button class="btn btn-ghost" id="btnToc">目录</button>
+      <button class="btn btn-ghost" id="btnSettings">设置</button>
+    </header>
+
+    <div class="reader-body" id="readerBody">
+      <aside class="toc-panel hidden" id="tocPanel">
+        <h4>目录</h4>
+        <ul id="tocList"></ul>
+      </aside>
+      <main class="viewer" id="viewer"></main>
+    </div>
+
+    <footer class="reader-bottom">
+      <button class="btn btn-ghost" id="btnPrev" disabled>上一章 / 上一页</button>
+      <div class="progress-wrap">
+        <input type="range" id="progressSlider" min="0" max="1000" value="0" />
+        <span class="pct" id="progressText">0%</span>
+      </div>
+      <button class="btn btn-ghost" id="btnNext" disabled>下一章 / 下一页</button>
+    </footer>
+  </div>
+
+  <div class="settings-panel hidden" id="settingsPanel">
+    <div>
+      <h5>字号</h5>
+      <div class="range-row">
+        <input type="range" id="fontSizeRange" min="0" max="100" value="40" />
+        <span class="val" id="fontSizeVal">40</span>
+      </div>
+    </div>
+    <div>
+      <h5>主题</h5>
+      <div class="seg-group" id="themeGroup">
+        <button data-theme="light">护眼</button>
+        <button data-theme="sepia">羊皮纸</button>
+        <button data-theme="dark">夜间</button>
+      </div>
+    </div>
+    <div>
+      <h5>字体</h5>
+      <div class="seg-group" id="fontGroup">
+        <button data-font="serif">衬线</button>
+        <button data-font="sans">黑体</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/reader.js"></script>
+</body>
+</html>

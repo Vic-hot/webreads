@@ -1,0 +1,33 @@
+# ============================================================
+# 私人书库 · Cloudflare Pages 配置
+# 部署前请按 README 的「云端部署」步骤创建云资源，
+# 并把下方占位符替换成真实的资源 ID。
+# ============================================================
+
+name = "ebook-library"
+compatibility_date = "2025-05-01"
+pages_build_output_dir = "public"
+
+# R2 存储桶：存放电子书文件与封面图
+[[r2_buckets]]
+binding = "BOOKS_BUCKET"
+bucket_name = "ebook-library-bucket"
+
+# D1 数据库：存放书目元数据
+[[d1_databases]]
+binding = "DB"
+database_name = "ebook-library-db"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+# KV 命名空间：存放登录会话
+[[kv_namespaces]]
+binding = "SESSIONS"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+# 公开变量
+[vars]
+LIBRARY_NAME = "私人书库"          # 站点名称，可改
+SESSION_TTL_DAYS = "30"            # 登录会话有效期（天）
+# 登录密码：本地开发用这个占位值；
+# 生产环境务必用 `wrangler pages secret put LIBRARY_PASSWORD` 覆盖！
+LIBRARY_PASSWORD = "please-change-me"

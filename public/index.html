@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>书架 · 私人书库</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23a9743f'/><text x='16' y='22' font-size='16' text-anchor='middle' fill='%23fbf7ef' font-family='Georgia'>书</text></svg>" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="mark">📚</span>私人书库</div>
+    <input type="search" class="search" id="searchInput" placeholder="搜索书名 / 作者 / 标签…" />
+    <div class="actions">
+      <a href="/admin.html" class="btn btn-ghost">管理</a>
+      <button class="btn btn-ghost" id="logoutBtn">退出</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="filter-bar">
+      <span class="stats" id="statsText"></span>
+      <div style="flex:1"></div>
+      <button class="chip active" data-format="">全部</button>
+      <button class="chip" data-format="epub">EPUB</button>
+      <button class="chip" data-format="pdf">PDF</button>
+      <button class="chip" data-format="txt">TXT</button>
+    </div>
+
+    <div class="book-grid" id="bookGrid"></div>
+
+    <div class="empty-state hidden" id="emptyState">
+      <div class="big">🕮</div>
+      <p id="emptyText">书库还是空的<br />前往「管理」页上传你的第一本书吧</p>
+    </div>
+
+    <div class="load-more-wrap hidden" id="loadMoreWrap">
+      <button class="btn btn-ghost" id="loadMoreBtn">加载更多</button>
+    </div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/bookshelf.js"></script>
+</body>
+</html>
